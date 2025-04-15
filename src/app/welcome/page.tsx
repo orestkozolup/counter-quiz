@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 
 import { STORAGE_KEYS } from "@/const/storage";
+import { useStoreContext } from "@/contexts/StoreContext";
 
-export const Login = () => {
-  const [user, setUser] = useState<string | null>(null);
+export const Welcome = () => {
+  const { user, setUser } = useStoreContext();
 
   useEffect(() => {
-    const user = localStorage.getItem(STORAGE_KEYS.USER);
+    const cachedUser = localStorage.getItem(STORAGE_KEYS.USER);
 
-    if (user) {
-      setUser(user);
+    if (cachedUser) {
+      setUser(cachedUser);
     }
   }, []);
 
@@ -26,4 +27,4 @@ export const Login = () => {
   );
 };
 
-export default Login;
+export default Welcome;
