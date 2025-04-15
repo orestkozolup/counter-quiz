@@ -2,22 +2,32 @@
 
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 
 import { UserConfig, OperationsConfig } from "./components";
 import { OPERATIONS } from "@/const/operations";
-
-import dynamic from "next/dynamic";
+import { STORAGE_KEYS } from "@/const/storage";
 
 const ComplexityConfig = dynamic(() => import("./components/complexity"), {
   ssr: false,
 });
 
 export const Configure = () => {
-  const { user, complexity } = useStoreContext();
+  const { user, complexity, operations } = useStoreContext();
 
   const [configUser, setConfigUser] = useState<string | null>(user);
   const [configComplexity, setConfigComplexity] = useState<number>(complexity);
-  const [configOperations, setConfigOperations] = useState<OPERATIONS[]>([]);
+  const [configOperations, setConfigOperations] =
+    useState<OPERATIONS[]>(operations);
+
+  const handleSave = () => {
+    localStorage.setItem(STORAGE_KEYS.USER, configUser || "");
+    localStorage.setItem(STORAGE_KEYS.COMPLEXITY, configComplexity.toString());
+    localStorage.setItem(
+      STORAGE_KEYS.OPERATIONS,
+      JSON.stringify(configOperations)
+    );
+  };
 
   return (
     <div>
@@ -32,6 +42,8 @@ export const Configure = () => {
         configOperations={configOperations}
         setConfigOperations={setConfigOperations}
       />
+
+      <button onClick={handleSave}>Save Configuration</button>
     </div>
   );
 };
