@@ -3,13 +3,14 @@
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
 
-import { UserConfig, ComplexityConfig } from "./components";
+import { UserConfig, ComplexityConfig, OperationsConfig } from "./components";
 
 export const Configure = () => {
   const { user, complexity } = useStoreContext();
 
   const [configUser, setConfigUser] = useState<string | null>(user);
   const [configComplexity, setConfigComplexity] = useState<number>(complexity);
+  const [configOperations, setConfigOperations] = useState<string[]>([]);
 
   return (
     <div>
@@ -19,6 +20,10 @@ export const Configure = () => {
       <ComplexityConfig
         configComplexity={configComplexity}
         setConfigComplexity={setConfigComplexity}
+      />
+      <OperationsConfig
+        configOperations={configOperations}
+        setConfigOperations={setConfigOperations}
       />
     </div>
   );
