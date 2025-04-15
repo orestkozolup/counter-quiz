@@ -3,8 +3,8 @@ import Select from "react-select";
 import { OPERATIONS } from "@/const/operations";
 
 interface OperationsConfigProps {
-  configOperations: string[];
-  setConfigOperations: (operations: string[]) => void;
+  configOperations: OPERATIONS[];
+  setConfigOperations: (operations: OPERATIONS[]) => void;
 }
 
 export const OperationsConfig = ({

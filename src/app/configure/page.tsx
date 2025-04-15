@@ -3,14 +3,21 @@
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
 
-import { UserConfig, ComplexityConfig, OperationsConfig } from "./components";
+import { UserConfig, OperationsConfig } from "./components";
+import { OPERATIONS } from "@/const/operations";
+
+import dynamic from "next/dynamic";
+
+const ComplexityConfig = dynamic(() => import("./components/complexity"), {
+  ssr: false,
+});
 
 export const Configure = () => {
   const { user, complexity } = useStoreContext();
 
   const [configUser, setConfigUser] = useState<string | null>(user);
   const [configComplexity, setConfigComplexity] = useState<number>(complexity);
-  const [configOperations, setConfigOperations] = useState<string[]>([]);
+  const [configOperations, setConfigOperations] = useState<OPERATIONS[]>([]);
 
   return (
     <div>

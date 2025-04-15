@@ -1,3 +1,5 @@
+"use client";
+
 import Select from "react-select";
 
 import { COMPLEXITY_OPTIONS } from "@/const/complexity";
