@@ -44,9 +44,12 @@ export const StoreContextProvider = ({
   const [operations, setOperations] = useState<OPERATIONS[]>([]);
 
   useEffect(() => {
+    console.log("HERE0", browserStorage.get(STORAGE_KEYS.USER, null));
     setUser(browserStorage.get(STORAGE_KEYS.USER, null));
-    setComplexity(browserStorage.get(STORAGE_KEYS.COMPLEXITY, 0));
-    setOperations(browserStorage.get(STORAGE_KEYS.OPERATIONS, []));
+    setComplexity(JSON.parse(browserStorage.get(STORAGE_KEYS.COMPLEXITY, "0")));
+    setOperations(
+      JSON.parse(browserStorage.get(STORAGE_KEYS.OPERATIONS, "[]"))
+    );
     setHasMounted(true);
   }, []);
 

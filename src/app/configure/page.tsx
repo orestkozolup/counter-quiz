@@ -15,6 +15,8 @@ const ComplexityConfig = dynamic(() => import("./components/complexity"), {
 export const Configure = () => {
   const { user, complexity, operations } = useStoreContext();
 
+  console.log("HERE1", user);
+
   const [configPage, setConfigPage] = useState<number>(0);
 
   const [configUser, setConfigUser] = useState<string | null>(user);
@@ -32,11 +34,12 @@ export const Configure = () => {
   };
 
   const isBackBtnHidden = configPage === 0;
-  const isNextBtnHidden =
-    (configPage === 0 && !configUser) ||
-    (configPage === 2 && configOperations.length === 0);
+  const isNextBtnHidden = (configPage === 0 && !configUser) || configPage === 2;
+  const isSaveBtnVisible =
+    configPage === 2 && configUser && configOperations.length > 0;
 
-  const areButtonsVisible = !isBackBtnHidden || !isNextBtnHidden;
+  const areButtonsVisible =
+    !isBackBtnHidden || !isNextBtnHidden || isSaveBtnVisible;
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-white">
@@ -85,9 +88,16 @@ export const Configure = () => {
               <button
                 onClick={() => setConfigPage((prev) => Math.min(prev + 1, 2))}
                 className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-                disabled={configPage === 2}
               >
                 Next
+              </button>
+            )}
+            {isSaveBtnVisible && (
+              <button
+                onClick={handleSave}
+                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+              >
+                Save
               </button>
             )}
           </>

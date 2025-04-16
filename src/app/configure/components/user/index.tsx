@@ -7,12 +7,14 @@ interface UserConfigProps {
 
 export const UserConfig = ({ configUser, setConfigUser }: UserConfigProps) => {
   return (
-    <input
-      type="text"
-      placeholder="Enter your name"
-      value={configUser ?? ""}
-      onChange={(e) => setConfigUser(e.target.value)}
-    />
+    <div>
+      <p>Enter your name</p>
+      <input
+        type="text"
+        value={configUser ?? ""}
+        onChange={(e) => setConfigUser(e.target.value)}
+      />
+    </div>
   );
 };
 

@@ -18,11 +18,16 @@ export const ComplexityConfig = ({
   };
 
   return (
-    <Select
-      value={COMPLEXITY_OPTIONS.find(({ value }) => value === configComplexity)}
-      onChange={handleChange}
-      options={COMPLEXITY_OPTIONS}
-    />
+    <div>
+      <p>Select complexity level</p>
+      <Select
+        value={COMPLEXITY_OPTIONS.find(
+          ({ value }) => value === configComplexity
+        )}
+        onChange={handleChange}
+        options={COMPLEXITY_OPTIONS}
+      />
+    </div>
   );
 };
 

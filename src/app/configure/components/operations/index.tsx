@@ -22,25 +22,28 @@ export const OperationsConfig = ({
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {Object.values(OPERATIONS).map((operation) => {
-        const isSelected = configOperations.includes(operation);
+    <div>
+      <p>Choose the mathematical operations</p>
+      <div className="grid grid-cols-2 gap-2">
+        {Object.values(OPERATIONS).map((operation) => {
+          const isSelected = configOperations.includes(operation);
 
-        return (
-          <div
-            key={operation}
-            className={`p-2 border rounded cursor-pointer transition 
+          return (
+            <div
+              key={operation}
+              className={`p-2 border rounded cursor-pointer transition 
               ${
                 isSelected
                   ? "bg-blue-500 text-white"
                   : "bg-white text-gray-800 hover:bg-gray-100"
               }`}
-            onClick={() => handleClick(operation)}
-          >
-            {operation}
-          </div>
-        );
-      })}
+              onClick={() => handleClick(operation)}
+            >
+              {operation}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
