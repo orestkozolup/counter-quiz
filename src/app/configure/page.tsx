@@ -31,10 +31,17 @@ export const Configure = () => {
     );
   };
 
+  const isBackBtnHidden = configPage === 0;
+  const isNextBtnHidden =
+    (configPage === 0 && !configUser) ||
+    (configPage === 2 && configOperations.length === 0);
+
+  const areButtonsVisible = !isBackBtnHidden || !isNextBtnHidden;
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-white">
       <h3 className="text-center text-lg font-medium mt-4">
-        Please configure your quiz
+        Configure your quiz
       </h3>
 
       <div className="flex-grow flex items-center justify-center overflow-auto p-4">
@@ -56,9 +63,12 @@ export const Configure = () => {
       </div>
 
       <div className="sticky bottom-0 bg-gray-800 border-t p-4 flex justify-between gap-4 shadow-lg">
-        <button
-          onClick={() => setConfigPage((prev) => Math.max(prev - 1, 0))}
-          className={`
+        {areButtonsVisible ? (
+          <>
+            {!isBackBtnHidden && (
+              <button
+                onClick={() => setConfigPage((prev) => Math.max(prev - 1, 0))}
+                className={`
             flex-1 py-2 px-4 rounded 
             ${
               configPage === 0
@@ -66,17 +76,24 @@ export const Configure = () => {
                 : "bg-gray-700 text-white hover:bg-gray-600"
             }
           `}
-          disabled={configPage === 0}
-        >
-          Back
-        </button>
-        <button
-          onClick={() => setConfigPage((prev) => Math.min(prev + 1, 2))}
-          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-          disabled={configPage === 2}
-        >
-          Next
-        </button>
+                disabled={configPage === 0}
+              >
+                Back
+              </button>
+            )}
+            {!isNextBtnHidden && (
+              <button
+                onClick={() => setConfigPage((prev) => Math.min(prev + 1, 2))}
+                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+                disabled={configPage === 2}
+              >
+                Next
+              </button>
+            )}
+          </>
+        ) : (
+          <div className="h-[40px] w-full"></div>
+        )}
       </div>
     </div>
   );
