@@ -4,6 +4,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 import { STORAGE_KEYS } from "@/const/storage";
 import { OPERATIONS } from "@/const/operations";
+import { BrowserStorage } from "@/browser-storage";
+
+const browserStorage = new BrowserStorage();
 
 interface StoreContextProps {
   user: string | null;
@@ -34,19 +37,20 @@ const StoreContext = createContext(storeContextInitial);
 export const StoreContextProvider = ({
   children,
 }: StoreContextProviderProps) => {
+  const [hasMounted, setHasMounted] = useState(false);
+
   const [user, setUser] = useState<string | null>(null);
   const [complexity, setComplexity] = useState<number>(0);
   const [operations, setOperations] = useState<OPERATIONS[]>([]);
 
   useEffect(() => {
-    const cachedUser = localStorage.getItem(STORAGE_KEYS.USER);
-    const cachedComplexity = localStorage.getItem(STORAGE_KEYS.COMPLEXITY);
-    const cachedOperations = localStorage.getItem(STORAGE_KEYS.OPERATIONS);
-
-    setUser(cachedUser);
-    setComplexity(Number(cachedComplexity));
-    setOperations(JSON.parse(cachedOperations || "[]"));
+    setUser(browserStorage.get(STORAGE_KEYS.USER, null));
+    setComplexity(browserStorage.get(STORAGE_KEYS.COMPLEXITY, 0));
+    setOperations(browserStorage.get(STORAGE_KEYS.OPERATIONS, []));
+    setHasMounted(true);
   }, []);
+
+  if (!hasMounted) return null;
 
   return (
     <StoreContext.Provider
