@@ -3,6 +3,7 @@
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 import { UserConfig, OperationsConfig } from "./components";
 import { OPERATIONS } from "@/const/operations";
@@ -13,9 +14,8 @@ const ComplexityConfig = dynamic(() => import("./components/complexity"), {
 });
 
 export const Configure = () => {
+  const router = useRouter();
   const { user, complexity, operations } = useStoreContext();
-
-  console.log("HERE1", user);
 
   const [configPage, setConfigPage] = useState<number>(0);
 
@@ -31,6 +31,8 @@ export const Configure = () => {
       STORAGE_KEYS.OPERATIONS,
       JSON.stringify(configOperations)
     );
+
+    router.push("/game");
   };
 
   const isBackBtnHidden = configPage === 0;
@@ -97,7 +99,7 @@ export const Configure = () => {
                 onClick={handleSave}
                 className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
               >
-                Save
+                Save and Play
               </button>
             )}
           </>

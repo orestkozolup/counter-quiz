@@ -4,3 +4,10 @@ export enum OPERATIONS {
   MULTIPLICATION = "multiplication",
   DIVISION = "division",
 }
+
+export const OPERATION_SIGNS = {
+  [OPERATIONS.ADDITION]: "+",
+  [OPERATIONS.SUBTRACTION]: "-",
+  [OPERATIONS.MULTIPLICATION]: "*",
+  [OPERATIONS.DIVISION]: "/",
+};
