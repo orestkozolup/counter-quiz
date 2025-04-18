@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react";
-
 import { OPERATIONS } from "@/const/operations";
 
 interface OperationsConfigProps {
@@ -16,34 +15,45 @@ export const OperationsConfig = ({
       if (prevOperations.includes(operation)) {
         return prevOperations.filter((op: OPERATIONS) => op !== operation);
       }
-
       return [...prevOperations, operation];
     });
   };
 
+  const isDivisionIncluded = configOperations.includes(OPERATIONS.DIVISION);
+
   return (
-    <div>
-      <p>Choose the mathematical operations</p>
-      <div className="grid grid-cols-2 gap-2">
+    <div className="w-full max-w-sm mx-auto px-4 py-6 bg-white rounded-xl shadow-md space-y-4">
+      <p className="text-center text-base font-medium text-gray-700">
+        Choose the mathematical operations
+      </p>
+
+      <div className="grid grid-cols-2 gap-3">
         {Object.values(OPERATIONS).map((operation) => {
           const isSelected = configOperations.includes(operation);
 
           return (
-            <div
+            <button
               key={operation}
-              className={`p-2 border rounded cursor-pointer transition 
-              ${
-                isSelected
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-800 hover:bg-gray-100"
-              }`}
               onClick={() => handleClick(operation)}
+              className={`py-3 rounded-lg text-lg font-semibold transition 
+                ${
+                  isSelected
+                    ? "bg-indigo-500 text-white shadow-sm"
+                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                }`}
             >
               {operation}
-            </div>
+            </button>
           );
         })}
       </div>
+
+      {isDivisionIncluded && (
+        <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
+          ⚠️ This question may include division. If the result is not a whole
+          number, round your answer to <strong>1 decimal place</strong>.
+        </div>
+      )}
     </div>
   );
 };

@@ -50,7 +50,7 @@ export const useCalculator = () => {
         answer = operandOne * operandTwo;
         break;
       case OPERATIONS.DIVISION:
-        answer = operandOne / operandTwo;
+        answer = Number((operandOne / operandTwo).toFixed(1));
         break;
       default:
         answer = 0;

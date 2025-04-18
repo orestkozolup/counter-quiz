@@ -33,7 +33,11 @@ export const Game = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setInputValue(parseInt(value));
+
+    const normalized = value.replace(",", ".");
+
+    const parsed = parseFloat(normalized);
+    setInputValue(isNaN(parsed) ? null : parsed);
   };
 
   const handleNextClick = () => {
@@ -43,6 +47,8 @@ export const Game = () => {
     setResult(null);
   };
 
+  const isDivisionIncluded = question.includes("/");
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800">
       <div className="w-full max-w-xs p-6 bg-white rounded-xl shadow-md text-center space-y-4">
@@ -50,7 +56,7 @@ export const Game = () => {
           href="/scores"
           className="text-sm text-blue-600 underline block text-left"
         >
-          ← Scores
+          Scores
         </Link>
 
         <div className="text-lg font-semibold">
@@ -60,21 +66,30 @@ export const Game = () => {
         <div className="text-2xl font-bold">{question} ?</div>
 
         {result === null && (
-          <input
-            type="number"
-            onChange={handleChange}
-            value={inputValue === null ? "" : inputValue.toString()}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            placeholder="Enter your answer"
-          />
-        )}
+          <>
+            <input
+              type="number"
+              onChange={handleChange}
+              value={inputValue === null ? "" : inputValue.toString()}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Enter your answer"
+            />
 
-        <button
-          onClick={handleSubmit}
-          className="w-full py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
-        >
-          Submit
-        </button>
+            {isDivisionIncluded && (
+              <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
+                ⚠️ This question includes division. If the result is not a whole
+                number, round your answer to <strong>1 decimal place</strong>.
+              </div>
+            )}
+
+            <button
+              onClick={handleSubmit}
+              className="w-full py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
+            >
+              Submit
+            </button>
+          </>
+        )}
 
         {result && <div className="text-lg font-medium">{result}</div>}
 
