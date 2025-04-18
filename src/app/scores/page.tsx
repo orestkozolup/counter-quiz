@@ -22,27 +22,33 @@ export const Scores = () => {
 
       <div className="flex-grow overflow-auto">
         <ul className="space-y-3">
-          {Object.entries(scores).map(([score, date]) => {
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
+          {Object.entries(scores)
+            .sort((a: any, b: any) => {
+              return b[0] - a[0];
+            })
+            .map(([score, dateStr]) => {
+              const date = new Date(dateStr);
 
-            const timestamp = date.getTime();
+              const day = date.getDate();
+              const month = date.getMonth() + 1;
+              const year = date.getFullYear();
 
-            return (
-              <li
-                key={timestamp}
-                className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200"
-              >
-                <span className="text-lg font-medium text-gray-800">
-                  {score}
-                </span>
-                <span className="text-sm text-gray-500">
-                  {day}/{month}/{year}
-                </span>
-              </li>
-            );
-          })}
+              const timestamp = date.getTime();
+
+              return (
+                <li
+                  key={timestamp}
+                  className="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200"
+                >
+                  <span className="text-lg font-medium text-gray-800">
+                    {score}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {day}/{month}/{year}
+                  </span>
+                </li>
+              );
+            })}
         </ul>
       </div>
 

@@ -17,7 +17,7 @@ interface StoreContextProps {
   setUser: (user: string | null) => void;
   setComplexity: (complexity: number) => void;
   setOperations: (operations: OPERATIONS[]) => void;
-  addScore: (score: Record<string, Date>) => void;
+  addScore: (score: string, date: Date) => void;
 }
 
 const storeContextInitial: StoreContextProps = {
@@ -62,12 +62,13 @@ export const StoreContextProvider = ({
     setHasMounted(true);
   }, []);
 
-  const addScore = (score: Record<string, Date>) => {
-    setScores((prev) => ({
-      ...prev,
-      ...score,
-    }));
+  const addScore = (score: string, date: Date) => {
+    // console.log("HERE1", scores);
+
+    browserStorage.set(STORAGE_KEYS.SCORES, { ...scores, [score]: date });
   };
+
+  // console.log("HERE1", scores);
 
   if (!hasMounted) return null;
 

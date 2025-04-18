@@ -10,4 +10,12 @@ export class BrowserStorage {
     }
     return fallback;
   }
+
+  set(name: string, value: any): void {
+    try {
+      localStorage.setItem(name, JSON.stringify(value));
+    } catch (e) {
+      console.warn("Error setting to browser storage: ", e);
+    }
+  }
 }
