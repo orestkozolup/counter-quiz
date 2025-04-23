@@ -15,7 +15,7 @@ const ComplexityConfig = dynamic(() => import("./components/complexity"), {
 
 const Configure = () => {
   const router = useRouter();
-  const { user, complexity, operations } = useStoreContext();
+  const { user, complexity, operations, syncStore } = useStoreContext();
 
   const [configPage, setConfigPage] = useState<number>(0);
 
@@ -31,6 +31,8 @@ const Configure = () => {
       STORAGE_KEYS.OPERATIONS,
       JSON.stringify(configOperations)
     );
+
+    syncStore();
 
     router.push("/game");
   };
@@ -75,10 +77,9 @@ const Configure = () => {
                 onClick={() => setConfigPage((prev) => Math.max(prev - 1, 0))}
                 className={`
                   flex-1 py-3 px-4 rounded-lg text-lg font-semibold transition
-                  ${
-                    configPage === 0
-                      ? "bg-gray-300 text-gray-400 cursor-not-allowed"
-                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  ${configPage === 0
+                    ? "bg-gray-300 text-gray-400 cursor-not-allowed"
+                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                   }
                 `}
                 disabled={configPage === 0}

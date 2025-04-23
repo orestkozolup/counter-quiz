@@ -18,6 +18,7 @@ interface StoreContextProps {
   setComplexity: (complexity: number) => void;
   setOperations: (operations: OPERATIONS[]) => void;
   addScore: (score: string, date: Date) => void;
+  syncStore: () => void;
 }
 
 const storeContextInitial: StoreContextProps = {
@@ -26,10 +27,11 @@ const storeContextInitial: StoreContextProps = {
   operations: [],
   scores: {},
 
-  setUser: () => {},
-  setComplexity: () => {},
-  setOperations: () => {},
-  addScore: () => {},
+  setUser: () => { },
+  setComplexity: () => { },
+  setOperations: () => { },
+  addScore: () => { },
+  syncStore: () => { },
 };
 
 interface StoreContextProviderProps {
@@ -53,22 +55,22 @@ export const StoreContextProvider = ({
   const [scores, setScores] = useState<ScoreRecord>({});
 
   useEffect(() => {
+    syncStore();
+    setHasMounted(true);
+  }, []);
+
+  const addScore = (score: string, date: Date) => {
+    browserStorage.set(STORAGE_KEYS.SCORES, { ...scores, [score]: date });
+  };
+
+  const syncStore = () => {
     setUser(browserStorage.get(STORAGE_KEYS.USER, null));
     setComplexity(JSON.parse(browserStorage.get(STORAGE_KEYS.COMPLEXITY, "0")));
     setOperations(
       JSON.parse(browserStorage.get(STORAGE_KEYS.OPERATIONS, "[]"))
     );
     setScores(JSON.parse(browserStorage.get(STORAGE_KEYS.SCORES, "{}")));
-    setHasMounted(true);
-  }, []);
-
-  const addScore = (score: string, date: Date) => {
-    // console.log("HERE1", scores);
-
-    browserStorage.set(STORAGE_KEYS.SCORES, { ...scores, [score]: date });
-  };
-
-  // console.log("HERE1", scores);
+  }
 
   if (!hasMounted) return null;
 
@@ -83,6 +85,7 @@ export const StoreContextProvider = ({
         setComplexity,
         setOperations,
         addScore,
+        syncStore
       }}
     >
       {children}

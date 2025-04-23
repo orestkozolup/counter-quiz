@@ -19,6 +19,7 @@ const Game = () => {
 
   useEffect(() => {
     const { question: newQuestion, answer: newAnswer } = generateQuestion();
+
     setQuestion(newQuestion);
     setAnswer(newAnswer);
   }, []);
