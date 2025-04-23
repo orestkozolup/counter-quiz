@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useStoreContext } from "@/contexts/StoreContext";
 
-export const Welcome = () => {
+const Welcome = () => {
   const { user } = useStoreContext();
 
   return (

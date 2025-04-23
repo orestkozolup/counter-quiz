@@ -13,7 +13,7 @@ const ComplexityConfig = dynamic(() => import("./components/complexity"), {
   ssr: false,
 });
 
-export const Configure = () => {
+const Configure = () => {
   const router = useRouter();
   const { user, complexity, operations } = useStoreContext();
 

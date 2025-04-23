@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCalculator } from "./useCalculator";
 import { useStoreContext } from "@/contexts/StoreContext";
 
-export const Game = () => {
+const Game = () => {
   const { generateQuestion } = useCalculator();
   const { addScore } = useStoreContext();
   const router = useRouter();

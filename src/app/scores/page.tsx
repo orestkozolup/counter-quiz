@@ -3,7 +3,7 @@
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useRouter } from "next/navigation";
 
-export const Scores = () => {
+const Scores = () => {
   const { scores } = useStoreContext();
   const router = useRouter();
 
