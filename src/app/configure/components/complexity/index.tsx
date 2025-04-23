@@ -30,6 +30,7 @@ export const ComplexityConfig = ({
         options={COMPLEXITY_OPTIONS}
         className="react-select-container"
         classNamePrefix="react-select"
+        isSearchable={false}
         styles={{
           control: (provided) => ({
             ...provided,
