@@ -61,6 +61,7 @@ export const StoreContextProvider = ({
 
   const addScore = (score: string, date: Date) => {
     browserStorage.set(STORAGE_KEYS.SCORES, { ...scores, [score]: date });
+    syncStore();
   };
 
   const syncStore = () => {

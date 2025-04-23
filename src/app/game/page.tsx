@@ -26,7 +26,9 @@ const Game = () => {
 
   useEffect(() => {
     const handleBeforeUnload = () => {
-      addScore(currentScore.toString(), new Date());
+      if (currentScore) {
+        addScore(currentScore.toString(), new Date());
+      }
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);

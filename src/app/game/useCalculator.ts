@@ -9,16 +9,16 @@ export const useCalculator = () => {
 
     switch (complexity) {
       case 0:
-        upperBoundary = 99;
+        upperBoundary = 9;
         break;
       case 1:
-        upperBoundary = 999;
+        upperBoundary = 99;
         break;
       case 2:
-        upperBoundary = 9999;
+        upperBoundary = 999;
         break;
       default:
-        upperBoundary = 99;
+        upperBoundary = 9;
     }
 
     return Math.floor(Math.random() * upperBoundary);
