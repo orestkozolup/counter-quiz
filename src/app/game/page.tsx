@@ -71,6 +71,12 @@ const Game = () => {
     router.push("/welcome");
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const isDivisionIncluded = question.includes("/");
 
   return (
@@ -92,11 +98,13 @@ const Game = () => {
         {result === null && (
           <>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               onChange={handleChange}
               value={inputValue === null ? "" : inputValue.toString()}
               className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder={t('enter_answer')}
+              onKeyDown={handleKeyDown}
             />
 
             {isDivisionIncluded && (
