@@ -54,10 +54,16 @@ const Game = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const normalized = value.replace(",", ".");
-    const parsed = parseFloat(normalized);
-    setInputValue(isNaN(parsed) ? null : parsed);
+    
+    const isValidInput = /^-?\d*\.?\d*$/.test(value);
+    
+    if (isValidInput) {
+      const normalized = value.replace(",", ".");
+      const parsed = parseFloat(normalized);
+      setInputValue(isNaN(parsed) ? null : parsed);
+    }
   };
+  
 
   const handleNextClick = () => {
     const { question: newQuestion, answer: newAnswer } = generateQuestion();
