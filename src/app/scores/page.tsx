@@ -2,22 +2,25 @@
 
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useRouter } from "next/navigation";
+import { useTranslations } from 'next-intl';
 
 const Scores = () => {
   const { scores } = useStoreContext();
   const router = useRouter();
+
+  const t = useTranslations();
 
   const handleBackToGame = () => {
     router.push("/game");
   };
 
   return (
-    <div className="flex flex-col min-h-screen p-6 bg-white text-gray-900">
+    <div className="flex flex-col min-h-screen p-6 bg-white text-gray-900 pt-16">
       <h2 className="text-center text-2xl font-semibold text-gray-800">
-        Your Scores Record
+        {t('scores_table')}
       </h2>
       <p className="text-center text-gray-600 mb-6">
-        Here is the list of your past scores with the corresponding dates:
+        {t('scores_table_description')}
       </p>
 
       <div className="flex-grow overflow-auto">
@@ -57,7 +60,7 @@ const Scores = () => {
           onClick={handleBackToGame}
           className="w-full py-3 px-4 rounded-lg text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition"
         >
-          Back to Game
+          {t('back_to_game')}
         </button>
       </div>
     </div>

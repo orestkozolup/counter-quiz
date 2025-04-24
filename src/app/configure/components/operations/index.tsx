@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { OPERATIONS } from "@/const/operations";
 
+import { useTranslations } from 'next-intl';
+
 interface OperationsConfigProps {
   configOperations: OPERATIONS[];
   setConfigOperations: Dispatch<SetStateAction<OPERATIONS[]>>;
@@ -10,6 +12,8 @@ export const OperationsConfig = ({
   configOperations,
   setConfigOperations,
 }: OperationsConfigProps) => {
+  const t = useTranslations();
+
   const handleClick = (operation: OPERATIONS) => {
     setConfigOperations((prevOperations: OPERATIONS[]) => {
       if (prevOperations.includes(operation)) {
@@ -24,7 +28,7 @@ export const OperationsConfig = ({
   return (
     <div className="w-full max-w-sm mx-auto px-4 py-6 bg-white rounded-xl shadow-md space-y-4">
       <p className="text-center text-base font-medium text-gray-700">
-        Choose the mathematical operations
+        {t('choose_operations')}
       </p>
 
       <div className="grid grid-cols-2 gap-3">
@@ -42,7 +46,7 @@ export const OperationsConfig = ({
                     : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                 }`}
             >
-              {operation}
+              {t(operation)}
             </button>
           );
         })}
@@ -50,8 +54,7 @@ export const OperationsConfig = ({
 
       {isDivisionIncluded && (
         <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
-          ⚠️ This question may include division. If the result is not a whole
-          number, round your answer to <strong>1 decimal place</strong>.
+          ⚠️ {t('decimal_warning')}
         </div>
       )}
     </div>

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCalculator } from "./useCalculator";
 import { useStoreContext } from "@/contexts/StoreContext";
+import { useTranslations } from 'next-intl';
 
 const Game = () => {
   const { generateQuestion } = useCalculator();
@@ -16,6 +17,8 @@ const Game = () => {
   const [inputValue, setInputValue] = useState<number | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [currentScore, setCurrentScore] = useState(0);
+
+  const t = useTranslations();
 
   useEffect(() => {
     const { question: newQuestion, answer: newAnswer } = generateQuestion();
@@ -77,11 +80,11 @@ const Game = () => {
           href="/scores"
           className="text-sm text-blue-600 underline block text-left"
         >
-          Scores
+          {t('scores_table')}
         </Link>
 
         <div className="text-lg font-semibold">
-          Current Score: {currentScore}
+          {t('current_score')}: {currentScore}
         </div>
 
         <div className="text-2xl font-bold">{question} ?</div>
@@ -93,13 +96,12 @@ const Game = () => {
               onChange={handleChange}
               value={inputValue === null ? "" : inputValue.toString()}
               className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter your answer"
+              placeholder={t('enter_answer')}
             />
 
             {isDivisionIncluded && (
               <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
-                ⚠️ This question includes division. If the result is not a whole
-                number, round your answer to <strong>1 decimal place</strong>.
+                ⚠️ {t('decimal_warning')}
               </div>
             )}
 
@@ -107,7 +109,7 @@ const Game = () => {
               onClick={handleSubmit}
               className="w-full py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
             >
-              Submit
+              {t('submit')}
             </button>
           </>
         )}
@@ -118,7 +120,7 @@ const Game = () => {
           onClick={handleNextClick}
           className="w-full py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
         >
-          Next Question
+          {t('next_question')}
         </button>
       </div>
 
@@ -126,7 +128,7 @@ const Game = () => {
         onClick={handleEndGame}
         className="w-full max-w-xs py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition shadow-md"
       >
-        End Game
+        {t('end_game')}
       </button>
     </div>
   );

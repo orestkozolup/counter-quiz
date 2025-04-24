@@ -4,6 +4,7 @@ import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import { useTranslations } from 'next-intl';
 
 import { UserConfig, OperationsConfig } from "./components";
 import { OPERATIONS } from "@/const/operations";
@@ -16,6 +17,8 @@ const ComplexityConfig = dynamic(() => import("./components/complexity"), {
 const Configure = () => {
   const router = useRouter();
   const { user, complexity, operations, syncStore } = useStoreContext();
+
+  const t = useTranslations();
 
   const [configPage, setConfigPage] = useState<number>(0);
 
@@ -46,9 +49,9 @@ const Configure = () => {
     !isBackBtnHidden || !isNextBtnHidden || isSaveBtnVisible;
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800">
+    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 pt-16">
       <h3 className="text-center text-xl font-semibold mt-6 mb-4 text-gray-800">
-        Configure your quiz
+        {t('configure_settings')}
       </h3>
 
       <div className="flex-grow flex items-center justify-center overflow-auto px-4">
@@ -84,7 +87,7 @@ const Configure = () => {
                 `}
                 disabled={configPage === 0}
               >
-                Back
+                {t('back')}
               </button>
             )}
 
@@ -93,7 +96,7 @@ const Configure = () => {
                 onClick={() => setConfigPage((prev) => Math.min(prev + 1, 2))}
                 className="flex-1 py-3 px-4 rounded-lg text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition"
               >
-                Next
+                {t('next')}
               </button>
             )}
 
@@ -102,7 +105,7 @@ const Configure = () => {
                 onClick={handleSave}
                 className="flex-1 py-3 px-4 rounded-lg text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition"
               >
-                Save and Play
+                {t('save_and_play')}
               </button>
             )}
           </>

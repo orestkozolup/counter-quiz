@@ -1,15 +1,19 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
+
 interface UserConfigProps {
   configUser: string | null;
   setConfigUser: (user: string | null) => void;
 }
 
 export const UserConfig = ({ configUser, setConfigUser }: UserConfigProps) => {
+  const t = useTranslations();
+  
   return (
     <div className="w-full max-w-sm mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
       <p className="text-center text-lg font-medium text-gray-700">
-        Enter your name
+        {t('enter_name')}
       </p>
       <input
         type="text"

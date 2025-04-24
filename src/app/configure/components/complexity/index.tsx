@@ -1,7 +1,8 @@
 "use client";
 
 import Select from "react-select";
-import { COMPLEXITY_OPTIONS } from "@/const/complexity";
+import { useTranslations } from 'next-intl';
+import { getComplexityOptions } from "@/const/complexity";
 
 interface ComplexityConfigProps {
   configComplexity: number;
@@ -16,18 +17,22 @@ export const ComplexityConfig = ({
     setConfigComplexity(selectedOption.value);
   };
 
+  const t = useTranslations();
+
+  const complexityOptions = getComplexityOptions(t);
+
   return (
     <div className="w-full max-w-sm mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
       <p className="text-center text-lg font-medium text-gray-700">
-        Select complexity level
+        {t('select_complexity')}
       </p>
 
       <Select
-        value={COMPLEXITY_OPTIONS.find(
+        value={complexityOptions.find(
           ({ value }) => value === configComplexity
         )}
         onChange={handleChange}
-        options={COMPLEXITY_OPTIONS}
+        options={complexityOptions}
         className="react-select-container"
         classNamePrefix="react-select"
         isSearchable={false}
