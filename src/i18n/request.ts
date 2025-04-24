@@ -3,10 +3,12 @@ import { cookies } from 'next/headers';
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
-  const locale = cookieStore.get('locale')?.value || 'ua';
+  const locale = cookieStore.get('locale')?.value || 'en';
+
+  const messages = await import(`../../messages/${locale}.json`);
 
   return {
     locale,
-    messages: require(`../../messages/${locale}.json`)
+    messages: messages.default,
   };
 });
