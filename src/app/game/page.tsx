@@ -54,14 +54,24 @@ const Game = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    
-    const isValidInput = /^-?\d*\.?\d*$/.test(value);
-    
-    if (isValidInput) {
-      const normalized = value.replace(",", ".");
-      const parsed = parseFloat(normalized);
-      setInputValue(isNaN(parsed) ? null : parsed);
+
+    const numericValue = parseFloat(value);
+
+    if (!value) {
+      return setInputValue(parseFloat(""));
     }
+
+    if (isNaN(numericValue) || value[value.length - 1] === "." || value[value.length - 1] === ",") {
+      setInputValue(numericValue)
+    }
+    
+    // const isValidInput = /^-?\d*\.?\d*$/.test(value);
+    
+    // if (isValidInput) {
+    //   const normalized = value.replace(",", ".");
+    //   const parsed = parseFloat(normalized);
+    //   setInputValue(isNaN(parsed) ? null : parsed);
+    // }
   };
   
 
