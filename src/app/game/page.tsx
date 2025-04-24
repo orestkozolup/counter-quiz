@@ -99,7 +99,7 @@ const Game = () => {
           <>
             <input
               type="text"
-              inputMode="decimal"
+              inputMode="numeric"
               onChange={handleChange}
               value={inputValue === null ? "" : inputValue.toString()}
               className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
