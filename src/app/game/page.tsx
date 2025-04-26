@@ -14,7 +14,7 @@ const Game = () => {
 
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<number | null>(null);
-  const [inputValue, setInputValue] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [currentScore, setCurrentScore] = useState(0);
 
@@ -41,7 +41,7 @@ const Game = () => {
   }, [currentScore, addScore]);
 
   const handleSubmit = () => {
-    const isCorrectAnswer = answer === inputValue;
+    const isCorrectAnswer = answer === parseFloat(inputValue ?? "");
 
     if (isCorrectAnswer) {
       setResult("✅ Correct!");
@@ -55,25 +55,15 @@ const Game = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    const numericValue = parseFloat(value);
+    const pattern = /^[0-9.,]+$/;
 
-    if (!value) {
-      return setInputValue(parseFloat(""));
+    if (pattern.test(value)) {
+      const normalized = value.replace(/,/g, ".");
+      console.log(normalized); // "1.234.56"
+      setInputValue(normalized)
     }
-
-    if (isNaN(numericValue) || value[value.length - 1] === "." || value[value.length - 1] === ",") {
-      setInputValue(numericValue)
-    }
-    
-    // const isValidInput = /^-?\d*\.?\d*$/.test(value);
-    
-    // if (isValidInput) {
-    //   const normalized = value.replace(",", ".");
-    //   const parsed = parseFloat(normalized);
-    //   setInputValue(isNaN(parsed) ? null : parsed);
-    // }
   };
-  
+
 
   const handleNextClick = () => {
     const { question: newQuestion, answer: newAnswer } = generateQuestion();
