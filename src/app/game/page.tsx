@@ -55,12 +55,11 @@ const Game = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
-    const pattern = /^[0-9.,-]+$/;
+    const pattern = /^[0-9.,-]*$/;
 
     if (pattern.test(value)) {
       const normalized = value.replace(/,/g, ".");
-      console.log(normalized);
-      setInputValue(normalized)
+      setInputValue(normalized);
     }
   };
 
