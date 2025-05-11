@@ -4,6 +4,7 @@ import { useStoreContext } from "@/contexts/StoreContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import SettingsAnchor from "@/components/settings-anchor";
 
 const Scores = () => {
   const { scores } = useStoreContext();
@@ -17,6 +18,7 @@ const Scores = () => {
 
   return (
     <div>
+      <SettingsAnchor />
       <div className="flex flex-col min-h-screen p-6 bg-white text-gray-900 pt-16">
         <h2 className="text-center text-2xl font-semibold text-gray-800">
           {t("scores_table")}

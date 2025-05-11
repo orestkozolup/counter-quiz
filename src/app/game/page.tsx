@@ -8,6 +8,7 @@ import { useStoreContext } from "@/contexts/StoreContext";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import SettingsAnchor from "@/components/settings-anchor";
 
 const Game = () => {
   const { generateQuestion } = useCalculator();
@@ -87,6 +88,7 @@ const Game = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-background text-gray-800 space-y-4">
+      <SettingsAnchor />
       <div className="w-full max-w-xs p-6 bg-white rounded-xl shadow-md text-center space-y-4">
         <Link
           href="/scores"
