@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCalculator } from "./useCalculator";
 import { useStoreContext } from "@/contexts/StoreContext";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
 
 const Game = () => {
   const { generateQuestion } = useCalculator();
@@ -63,7 +64,6 @@ const Game = () => {
     }
   };
 
-
   const handleNextClick = () => {
     const { question: newQuestion, answer: newAnswer } = generateQuestion();
     setQuestion(newQuestion);
@@ -91,11 +91,11 @@ const Game = () => {
           href="/scores"
           className="text-sm text-blue-600 underline block text-left"
         >
-          {t('scores_table')}
+          {t("scores_table")}
         </Link>
 
         <div className="text-lg font-semibold">
-          {t('current_score')}: {currentScore}
+          {t("current_score")}: {currentScore}
         </div>
 
         <div className="text-2xl font-bold">{question} ?</div>
@@ -107,41 +107,40 @@ const Game = () => {
               onChange={handleChange}
               value={inputValue === null ? "" : inputValue.toString()}
               className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder={t('enter_answer')}
+              placeholder={t("enter_answer")}
               onKeyDown={handleKeyDown}
             />
 
             {isDivisionIncluded && (
               <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
-                ⚠️ {t('decimal_warning')}
+                ⚠️ {t("decimal_warning")}
               </div>
             )}
 
-            <button
-              onClick={handleSubmit}
-              className="w-full py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition"
-            >
-              {t('submit')}
-            </button>
+            <Button onClick={handleSubmit} className="w-full">
+              {t("submit")}
+            </Button>
           </>
         )}
 
         {result && <div className="text-lg font-medium">{result}</div>}
 
-        <button
+        <Button
           onClick={handleNextClick}
-          className="w-full py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+          className="w-full"
+          variant="secondary"
         >
-          {t('next_question')}
-        </button>
+          {t("next_question")}
+        </Button>
       </div>
 
-      <button
+      <Button
         onClick={handleEndGame}
-        className="w-full max-w-xs py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition shadow-md"
+        className="w-full max-w-xs"
+        variant="destructive"
       >
-        {t('end_game')}
-      </button>
+        {t("end_game")}
+      </Button>
     </div>
   );
 };

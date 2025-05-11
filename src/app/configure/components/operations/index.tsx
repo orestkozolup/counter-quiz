@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { OPERATIONS } from "@/const/operations";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
 
 interface OperationsConfigProps {
   configOperations: OPERATIONS[];
@@ -28,7 +29,7 @@ export const OperationsConfig = ({
   return (
     <div className="w-full max-w-sm mx-auto px-4 py-6 bg-white rounded-xl shadow-md space-y-4">
       <p className="text-center text-base font-medium text-gray-700">
-        {t('choose_operations')}
+        {t("choose_operations")}
       </p>
 
       <div className="grid grid-cols-2 gap-3">
@@ -36,25 +37,20 @@ export const OperationsConfig = ({
           const isSelected = configOperations.includes(operation);
 
           return (
-            <button
+            <Button
               key={operation}
               onClick={() => handleClick(operation)}
-              className={`py-3 rounded-lg text-lg font-semibold transition 
-                ${
-                  isSelected
-                    ? "bg-indigo-500 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                }`}
+              variant={isSelected ? "default" : "secondary"}
             >
               {t(operation)}
-            </button>
+            </Button>
           );
         })}
       </div>
 
       {isDivisionIncluded && (
         <div className="mt-4 text-sm text-yellow-600 bg-yellow-50 border border-yellow-200 p-3 rounded-md">
-          ⚠️ {t('decimal_warning')}
+          ⚠️ {t("decimal_warning")}
         </div>
       )}
     </div>

@@ -4,11 +4,12 @@ import { useStoreContext } from "@/contexts/StoreContext";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 import { UserConfig, OperationsConfig } from "./components";
 import { OPERATIONS } from "@/const/operations";
 import { STORAGE_KEYS } from "@/const/storage";
+import { Button } from "@/components/ui/button";
 
 const ComplexityConfig = dynamic(() => import("./components/complexity"), {
   ssr: false,
@@ -51,7 +52,7 @@ const Configure = () => {
   return (
     <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 pt-16">
       <h3 className="text-center text-xl font-semibold mt-6 mb-4 text-gray-800">
-        {t('configure_settings')}
+        {t("configure_settings")}
       </h3>
 
       <div className="flex-grow flex items-center justify-center overflow-auto px-4">
@@ -76,37 +77,29 @@ const Configure = () => {
         {areButtonsVisible ? (
           <>
             {!isBackBtnHidden && (
-              <button
+              <Button
                 onClick={() => setConfigPage((prev) => Math.max(prev - 1, 0))}
-                className={`
-                  flex-1 py-3 px-4 rounded-lg text-lg font-semibold transition
-                  ${configPage === 0
-                    ? "bg-gray-300 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                  }
-                `}
+                className="flex-1"
+                variant="secondary"
                 disabled={configPage === 0}
               >
-                {t('back')}
-              </button>
+                {t("back")}
+              </Button>
             )}
 
             {!isNextBtnHidden && (
-              <button
+              <Button
                 onClick={() => setConfigPage((prev) => Math.min(prev + 1, 2))}
-                className="flex-1 py-3 px-4 rounded-lg text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition"
+                className="flex-1"
               >
-                {t('next')}
-              </button>
+                {t("next")}
+              </Button>
             )}
 
             {isSaveBtnVisible && (
-              <button
-                onClick={handleSave}
-                className="flex-1 py-3 px-4 rounded-lg text-lg font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition"
-              >
-                {t('save_and_play')}
-              </button>
+              <Button onClick={handleSave} className="flex-1">
+                {t("save_and_play")}
+              </Button>
             )}
           </>
         ) : (
