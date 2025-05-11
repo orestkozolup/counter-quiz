@@ -28,5 +28,7 @@
   "next_question": "Next question",
   "end_game": "End game",
   "enter_answer": "Enter your answer",
-  "back_to_game": "Back to game"
+  "back_to_game": "Back to game",
+  "correct_result": "Correct",
+  "wrong_result": "Wrong. Correct answer"
 }

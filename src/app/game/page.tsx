@@ -46,10 +46,10 @@ const Game = () => {
     const isCorrectAnswer = answer === parseFloat(inputValue ?? "");
 
     if (isCorrectAnswer) {
-      setResult("✅ Correct!");
+      setResult(`✅ ${t("correct_result")}!`);
       setCurrentScore((prev) => prev + 1);
     } else {
-      setResult(`❌ Wrong. Correct answer: ${answer}`);
+      setResult(`❌ ${t("wrong")}: ${answer}`);
     }
     setInputValue(null);
   };
