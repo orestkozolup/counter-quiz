@@ -7,6 +7,7 @@ import { useCalculator } from "./useCalculator";
 import { useStoreContext } from "@/contexts/StoreContext";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Game = () => {
   const { generateQuestion } = useCalculator();
@@ -102,11 +103,10 @@ const Game = () => {
 
         {result === null && (
           <>
-            <input
+            <Input
               type="text"
               onChange={handleChange}
               value={inputValue === null ? "" : inputValue.toString()}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder={t("enter_answer")}
               onKeyDown={handleKeyDown}
             />
