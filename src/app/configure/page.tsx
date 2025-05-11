@@ -50,7 +50,7 @@ const Configure = () => {
     !isBackBtnHidden || !isNextBtnHidden || isSaveBtnVisible;
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 pt-16">
+    <div className="w-full min-h-screen flex flex-col text-gray-800 pt-16">
       <h3 className="text-center text-xl font-semibold mt-6 mb-4 text-gray-800">
         {t("configure_settings")}
       </h3>
